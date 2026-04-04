@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   // ADD THIS LINE: Replace 'your-repo-name' with your actual GitHub repository name
-  base: '/', 
+  base: '/juktiverse/', 
   plugins: [
     react(),
     tailwindcss(),
