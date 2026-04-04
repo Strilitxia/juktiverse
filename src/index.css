@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@layer base {
+  html, body {
+    @apply overflow-hidden select-none touch-none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Allow pointer events on UI but still no selection */
+  .pointer-events-auto {
+    @apply select-none;
+  }
+}
