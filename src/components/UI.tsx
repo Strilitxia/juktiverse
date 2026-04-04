@@ -39,6 +39,26 @@ function BGMPlayer() {
   return null;
 }
 
+function WhiteoutEffect() {
+  const { status } = useGameStore();
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (status === 'whiteout') {
+      // High-pitched sci-fi scanner/ringing sound for the bright star
+      const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3');
+      audio.volume = 0.5;
+      audio.play().catch(e => console.log('Whiteout audio play failed:', e));
+      audioRef.current = audio;
+    } else if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+  }, [status]);
+
+  return null;
+}
+
 function CollisionEffect() {
   const { collisionTimestamp } = useGameStore();
   const [isActive, setIsActive] = useState(false);
@@ -155,7 +175,7 @@ function MiniMap({ onClick }: { onClick?: () => void }) {
         
         // Only show if within map bounds or if discovered
         const distance = Math.sqrt(dx * dx + dz * dz);
-        const isDiscovered = visitedPlanets.includes(planet.id);
+        const isDiscovered = visitedPlanets.includes(planet.id) && planet.type !== 'x-planet' && planet.type !== 'star';
         
         if (distance > center && !isDiscovered) return null;
 
@@ -290,7 +310,7 @@ function FullMap({ onClose }: { onClose: () => void }) {
 
           {/* Planets */}
           {planets.map(planet => {
-            const isDiscovered = visitedPlanets.includes(planet.id);
+            const isDiscovered = visitedPlanets.includes(planet.id) && planet.type !== 'x-planet' && planet.type !== 'star';
             const left = `${((planet.position[0] - mapMinX) / maxDim) * 100}%`;
             const top = `${((planet.position[2] - mapMinZ) / maxDim) * 100}%`;
             
@@ -322,7 +342,7 @@ function FullMap({ onClose }: { onClose: () => void }) {
       </div>
       
       {/* Zoom Controls */}
-      <div className="absolute bottom-8 right-8 flex flex-col gap-2 z-50">
+      <div className="absolute bottom-16 right-4 md:bottom-8 md:right-8 flex flex-col gap-2 z-50">
         <button 
           onClick={() => setZoom(z => Math.min(10, z + 0.5))} 
           className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-xl backdrop-blur-md border border-white/20 transition-colors"
@@ -391,6 +411,7 @@ export function UI() {
     <div className="absolute inset-0 pointer-events-none z-10 font-sans text-white select-none">
       <BGMPlayer />
       <CollisionEffect />
+      <WhiteoutEffect />
       <DiscoveryNotification />
       <AnimatePresence>
         {status === 'intro' && (
@@ -446,29 +467,29 @@ export function UI() {
             <motion.div 
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="absolute top-4 left-4 right-4 flex justify-between items-start pointer-events-auto"
+              className="absolute top-6 md:top-4 left-4 right-4 flex justify-between items-start pointer-events-auto"
             >
-              <div className="bg-black/80 backdrop-blur-md border border-white/10 p-3 md:p-4 rounded-2xl flex items-center gap-4 md:gap-6 shadow-2xl">
-                <div className="flex items-center gap-2 md:gap-3">
-                  <MapIcon className="w-5 h-5 md:w-6 md:h-6 text-orange-500" />
+              <div className="bg-black/80 backdrop-blur-md border border-white/10 p-3 md:p-4 rounded-2xl flex items-center gap-3 md:gap-6 shadow-2xl max-w-[60%] md:max-w-none overflow-hidden">
+                <div className="flex items-center gap-2 md:gap-3 shrink-0">
+                  <MapIcon className="w-4 h-4 md:w-6 md:h-6 text-orange-500" />
                   <div>
-                    <div className="text-[10px] md:text-xs text-gray-400 uppercase tracking-wider font-semibold">Explored</div>
-                    <div className="text-sm md:text-lg font-mono">{visitedPlanets.length} / {planets.length}</div>
+                    <div className="text-[9px] md:text-xs text-gray-400 uppercase tracking-wider font-semibold">Explored</div>
+                    <div className="text-xs md:text-lg font-mono">{visitedPlanets.length} / {planets.length}</div>
                   </div>
                 </div>
-                <div className="w-px h-6 md:h-8 bg-white/20"></div>
-                <div className="flex items-center gap-2 md:gap-3">
-                  <Compass className="w-5 h-5 md:w-6 md:h-6 text-orange-500" />
+                <div className="w-px h-6 md:h-8 bg-white/20 shrink-0"></div>
+                <div className="flex items-center gap-2 md:gap-3 shrink-0">
+                  <Compass className="w-4 h-4 md:w-6 md:h-6 text-orange-500" />
                   <div>
-                    <div className="text-[10px] md:text-xs text-gray-400 uppercase tracking-wider font-semibold">Coords</div>
-                    <div className="text-sm md:text-lg font-mono">
+                    <div className="text-[9px] md:text-xs text-gray-400 uppercase tracking-wider font-semibold">Coords</div>
+                    <div className="text-xs md:text-lg font-mono">
                       {Math.round(playerPosition[0])}, {Math.round(playerPosition[2])}
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="scale-75 origin-top-right md:scale-100">
+              <div className="scale-75 origin-top-right md:scale-100 shrink-0">
                 <MiniMap onClick={() => setIsMapOpen(true)} />
               </div>
             </motion.div>
@@ -476,12 +497,12 @@ export function UI() {
             {/* Mobile Controls */}
             {isMobile && (
               <>
-                <div className="absolute bottom-8 left-8 pointer-events-auto flex flex-col items-center gap-2">
+                <div className="absolute bottom-16 left-4 sm:bottom-20 sm:left-8 pointer-events-auto flex flex-col items-center gap-2">
                   <button 
                     onPointerDown={() => simulateKey('KeyW', true)}
                     onPointerUp={() => simulateKey('KeyW', false)}
                     onPointerLeave={() => simulateKey('KeyW', false)}
-                    className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center active:bg-white/30 border border-white/20"
+                    className="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center active:bg-white/30 border border-white/20"
                   >
                     <ChevronUp className="w-8 h-8" />
                   </button>
@@ -490,7 +511,7 @@ export function UI() {
                       onPointerDown={() => simulateKey('KeyA', true)}
                       onPointerUp={() => simulateKey('KeyA', false)}
                       onPointerLeave={() => simulateKey('KeyA', false)}
-                      className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center active:bg-white/30 border border-white/20"
+                      className="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center active:bg-white/30 border border-white/20"
                     >
                       <ChevronLeft className="w-8 h-8" />
                     </button>
@@ -498,7 +519,7 @@ export function UI() {
                       onPointerDown={() => simulateKey('KeyS', true)}
                       onPointerUp={() => simulateKey('KeyS', false)}
                       onPointerLeave={() => simulateKey('KeyS', false)}
-                      className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center active:bg-white/30 border border-white/20"
+                      className="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center active:bg-white/30 border border-white/20"
                     >
                       <ChevronDown className="w-8 h-8" />
                     </button>
@@ -506,7 +527,7 @@ export function UI() {
                       onPointerDown={() => simulateKey('KeyD', true)}
                       onPointerUp={() => simulateKey('KeyD', false)}
                       onPointerLeave={() => simulateKey('KeyD', false)}
-                      className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center active:bg-white/30 border border-white/20"
+                      className="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center active:bg-white/30 border border-white/20"
                     >
                       <ChevronRight className="w-8 h-8" />
                     </button>
@@ -514,12 +535,12 @@ export function UI() {
                 </div>
                 
                 {/* Mobile Up/Down Controls */}
-                <div className="absolute bottom-8 right-8 pointer-events-auto flex flex-col items-center gap-2">
+                <div className="absolute bottom-16 right-4 sm:bottom-20 sm:right-8 pointer-events-auto flex flex-col items-center gap-2">
                   <button 
                     onPointerDown={() => simulateKey('Space', true)}
                     onPointerUp={() => simulateKey('Space', false)}
                     onPointerLeave={() => simulateKey('Space', false)}
-                    className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center active:bg-white/30 border border-white/20"
+                    className="w-14 h-14 sm:w-16 sm:h-16 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center active:bg-white/30 border border-white/20"
                   >
                     <span className="font-bold text-lg">UP</span>
                   </button>
@@ -527,7 +548,7 @@ export function UI() {
                     onPointerDown={() => simulateKey('ShiftLeft', true)}
                     onPointerUp={() => simulateKey('ShiftLeft', false)}
                     onPointerLeave={() => simulateKey('ShiftLeft', false)}
-                    className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center active:bg-white/30 border border-white/20"
+                    className="w-14 h-14 sm:w-16 sm:h-16 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center active:bg-white/30 border border-white/20"
                   >
                     <span className="font-bold text-lg">DN</span>
                   </button>

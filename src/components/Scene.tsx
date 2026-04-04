@@ -22,7 +22,7 @@ function Player() {
   // Initialize camera position from saved state
   useEffect(() => {
     const savedPos = useGameStore.getState().playerPosition;
-    if (savedPos && (savedPos[0] !== 0 || savedPos[1] !== 0 || savedPos[2] !== 0)) {
+    if (savedPos && !savedPos.some(isNaN) && (savedPos[0] !== 0 || savedPos[1] !== 0 || savedPos[2] !== 0)) {
       camera.position.set(...savedPos);
     }
   }, [camera]);
@@ -54,12 +54,14 @@ function Player() {
         const deltaX = touch.clientX - previousTouch.current.x;
         const deltaY = touch.clientY - previousTouch.current.y;
         
-        camera.rotation.order = 'YXZ';
-        camera.rotation.y -= deltaX * 0.005;
-        camera.rotation.x -= deltaY * 0.005;
-        
-        // Clamp pitch
-        camera.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, camera.rotation.x));
+        if (!isNaN(deltaX) && !isNaN(deltaY)) {
+          camera.rotation.order = 'YXZ';
+          camera.rotation.y -= deltaX * 0.005;
+          camera.rotation.x -= deltaY * 0.005;
+          
+          // Clamp pitch
+          camera.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, camera.rotation.x));
+        }
         
         previousTouch.current = { x: touch.clientX, y: touch.clientY };
       }
@@ -138,7 +140,9 @@ function Player() {
 
     // Update store position periodically
     if (Math.random() < 0.1) {
-      setPlayerPosition([camera.position.x, camera.position.y, camera.position.z]);
+      if (!isNaN(camera.position.x) && !isNaN(camera.position.y) && !isNaN(camera.position.z)) {
+        setPlayerPosition([camera.position.x, camera.position.y, camera.position.z]);
+      }
     }
 
     // Check proximity and view angle to planets
@@ -272,16 +276,8 @@ function PlanetMesh({ planet }: { planet: Planet }) {
   const displayType = planet.visualType || planet.type;
   
   useFrame((state) => {
-    // Distance culling
     const distSq = state.camera.position.distanceToSquared(planetPos);
-    const isVisible = distSq < 400000; // ~632 units
     
-    if (groupRef.current) {
-      groupRef.current.visible = isVisible;
-    }
-    
-    if (!isVisible) return; // Skip updates if too far
-
     if (htmlRef.current) {
       htmlRef.current.style.opacity = distSq < 90000 ? '1' : '0'; // ~300 units
       htmlRef.current.style.pointerEvents = distSq < 90000 ? 'auto' : 'none';
