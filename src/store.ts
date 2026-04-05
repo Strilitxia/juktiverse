@@ -243,7 +243,7 @@ const initialPlanets: Planet[] = [
   {
     id: 'p18',
     name: 'Dark Sun',
-    type: 'star',
+    type: 'x-planet',
     visualType: 'blackhole',
     position: [160, 230, 240],
     size: 8,
