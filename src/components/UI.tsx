@@ -175,7 +175,7 @@ function MiniMap({ onClick }: { onClick?: () => void }) {
         
         // Only show if within map bounds or if discovered
         const distance = Math.sqrt(dx * dx + dz * dz);
-        const isDiscovered = visitedPlanets.includes(planet.id) && planet.type !== 'x-planet' && planet.type !== 'star';
+        const isDiscovered = visitedPlanets.includes(planet.id) && planet.type !== 'x-planet';
         
         if (distance > center && !isDiscovered) return null;
 
@@ -310,7 +310,7 @@ function FullMap({ onClose }: { onClose: () => void }) {
 
           {/* Planets */}
           {planets.map(planet => {
-            const isDiscovered = visitedPlanets.includes(planet.id) && planet.type !== 'x-planet' && planet.type !== 'star';
+            const isDiscovered = visitedPlanets.includes(planet.id) && planet.type !== 'x-planet';
             const left = `${((planet.position[0] - mapMinX) / maxDim) * 100}%`;
             const top = `${((planet.position[2] - mapMinZ) / maxDim) * 100}%`;
             

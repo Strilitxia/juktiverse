@@ -318,11 +318,7 @@ function PlanetMesh({ planet }: { planet: Planet }) {
       (glowRef.current.material as THREE.MeshBasicMaterial).opacity = 0.4 + Math.sin(state.clock.elapsedTime * 8) * 0.2;
     }
 
-    if (displayType === 'blackhole') {
-      const timeScale = (status === 'slowmo' || status === 'blackhole-warning') ? 0.1 : 1;
-      if (diskRef1.current) diskRef1.current.rotation.z -= 0.01 * timeScale;
-      if (diskRef2.current) diskRef2.current.rotation.z -= 0.015 * timeScale;
-    }
+    // Black hole accretion disk rotation disabled for mobile performance
   });
 
   const material = useMemo(() => {
