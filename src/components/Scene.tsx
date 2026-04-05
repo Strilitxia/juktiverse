@@ -266,8 +266,6 @@ function PlanetMesh({ planet }: { planet: Planet }) {
   const groupRef = useRef<THREE.Group>(null);
   const meshRef = useRef<THREE.Mesh>(null);
   const glowRef = useRef<THREE.Mesh>(null);
-  const diskRef1 = useRef<THREE.Mesh>(null);
-  const diskRef2 = useRef<THREE.Mesh>(null);
   const htmlRef = useRef<HTMLDivElement>(null);
   const { status, lastNewDiscovery } = useGameStore();
   const isNewlyDiscovered = lastNewDiscovery === planet.id;
@@ -363,15 +361,10 @@ function PlanetMesh({ planet }: { planet: Planet }) {
       {/* Accretion disk for black hole */}
       {displayType === 'blackhole' && (
         <group rotation={[Math.PI / 2.2, 0, 0]}>
-          {/* Outer faint disk */}
-          <mesh ref={diskRef1}>
-            <ringGeometry args={[planet.size * 1.5, planet.size * 3.5, 32]} />
-            <meshBasicMaterial color="#ff4400" transparent opacity={0.3} side={THREE.DoubleSide} blending={THREE.AdditiveBlending} />
-          </mesh>
-          {/* Inner bright disk */}
-          <mesh ref={diskRef2}>
-            <ringGeometry args={[planet.size * 1.2, planet.size * 2.2, 32]} />
-            <meshBasicMaterial color="#ffaa00" transparent opacity={0.6} side={THREE.DoubleSide} blending={THREE.AdditiveBlending} />
+          {/* Single solid accretion disk */}
+          <mesh>
+            <ringGeometry args={[planet.size * 1.2, planet.size * 3.0, 48]} />
+            <meshBasicMaterial color="#ff6600" transparent opacity={0.8} side={THREE.DoubleSide} />
           </mesh>
           {/* Photon ring (glow around the event horizon) */}
           <mesh rotation={[-Math.PI / 2.2, 0, 0]}>
