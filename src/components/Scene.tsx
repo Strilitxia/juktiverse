@@ -304,7 +304,7 @@ function PlanetMesh({ planet }: { planet: Planet }) {
       meshRef.current.rotation.y += 0.005 * timeScale;
     }
 
-    if (glowRef.current && isNewlyDiscovered) {
+    if (glowRef.current && isNewlyDiscovered && displayType !== 'blackhole') {
       const s = 1.2 + Math.sin(state.clock.elapsedTime * 8) * 0.1;
       glowRef.current.scale.setScalar(s);
       (glowRef.current.material as THREE.MeshBasicMaterial).opacity = 0.4 + Math.sin(state.clock.elapsedTime * 8) * 0.2;
@@ -340,7 +340,7 @@ function PlanetMesh({ planet }: { planet: Planet }) {
       </Sphere>
       
       {/* Discovery Pulse Glow */}
-      {isNewlyDiscovered && (
+      {isNewlyDiscovered && displayType !== 'blackhole' && (
         <Sphere ref={glowRef} args={[planet.size * 1.5, 16, 16]}>
           <meshBasicMaterial color={planet.color} transparent opacity={0.4} side={THREE.BackSide} />
         </Sphere>
@@ -364,12 +364,12 @@ function PlanetMesh({ planet }: { planet: Planet }) {
           {/* Single solid accretion disk */}
           <mesh>
             <ringGeometry args={[planet.size * 1.2, planet.size * 3.0, 48]} />
-            <meshBasicMaterial color="#ff6600" transparent opacity={0.8} side={THREE.DoubleSide} />
+            <meshBasicMaterial color="#ff6600" side={THREE.DoubleSide} />
           </mesh>
-          {/* Photon ring (glow around the event horizon) */}
+          {/* Photon ring (solid ring around the event horizon) */}
           <mesh rotation={[-Math.PI / 2.2, 0, 0]}>
             <sphereGeometry args={[planet.size * 1.05, 16, 16]} />
-            <meshBasicMaterial color="#ff4400" transparent opacity={0.8} side={THREE.BackSide} blending={THREE.AdditiveBlending} />
+            <meshBasicMaterial color="#ff4400" side={THREE.BackSide} />
           </mesh>
         </group>
       )}
