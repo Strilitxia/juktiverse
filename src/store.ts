@@ -92,7 +92,7 @@ const initialPlanets: Planet[] = [
     type: 'blackhole',
     visualType: 'blackhole',
     position: [140, 10, -50],
-    size: 12,
+    size: 8,
     color: '#000000',
     info: 'An honest singularity. Its massive event horizon is clearly visible against the starfield.',
     stats: { mass: '500 Suns', temperature: '0.0001 K', atmosphere: 'None' }
@@ -134,7 +134,7 @@ const initialPlanets: Planet[] = [
     id: 'p8',
     name: 'Ghost Sun',
     type: 'star',
-    visualType: 'blackhole',
+    visualType: 'normal',
     position: [110, -90, -230],
     size: 6,
     color: '#1e293b',
@@ -158,7 +158,7 @@ const initialPlanets: Planet[] = [
     type: 'star',
     visualType: 'star',
     position: [30, 150, 210],
-    size: 13,
+    size: 10,
     color: '#ffffff',
     info: 'A blindingly bright white giant. It acts as a lighthouse for this corner of the sector.',
     stats: { mass: '3.5 Suns', temperature: '9,500 K', atmosphere: 'Helium' }
@@ -191,7 +191,7 @@ const initialPlanets: Planet[] = [
     type: 'blackhole',
     visualType: 'normal',
     position: [-50, -150, -60],
-    size: 10,
+    size: 8,
     color: '#7913ED',
     info: 'A supermassive black hole. The gravity is so strong that travel time near it slows down.',
     stats: { mass: '1000 Suns', temperature: '0 K', atmosphere: 'None' }
@@ -235,7 +235,7 @@ const initialPlanets: Planet[] = [
     type: 'blackhole',
     visualType: 'star',
     position: [-10, -220, 190],
-    size: 12,
+    size: 7.9,
     color: '#818cf8',
     info: 'The core is a singularity, but the exploding shell still glows with star-like brilliance.',
     stats: { mass: '25 Suns', temperature: '5M K', atmosphere: 'Plasma Cloud' }
@@ -277,7 +277,7 @@ const initialPlanets: Planet[] = [
     name: 'Chronos',
     type: 'x-planet',
     visualType: 'normal',
-    position: [196, 312, -88],
+    position: [196, 220, -88],
     size: 8,
     color: '#13BFED',
     info: 'A star whose light is being sucked back in by its own gravity, looking like a void.',
