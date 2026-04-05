@@ -272,6 +272,16 @@ const initialPlanets: Planet[] = [
     color: '#000000',
     info: 'The furthest point in the sector. A massive singularity that seems to watch the galaxy.',
     stats: { mass: '5000 Suns', temperature: '0.00001 K', atmosphere: 'None' }
+  },{
+    id: 'p21',
+    name: 'Chronos',
+    type: 'x-planet',
+    visualType: 'normal',
+    position: [196, 230, -88],
+    size: 8,
+    color: '#000000',
+    info: 'A star whose light is being sucked back in by its own gravity, looking like a void.',
+    stats: { mass: '3.2 Suns', temperature: '12,000 K', atmosphere: 'Hydrogen' }
   }
 ];
 
