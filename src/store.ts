@@ -279,7 +279,7 @@ const initialPlanets: Planet[] = [
     visualType: 'normal',
     position: [196, 230, -88],
     size: 8,
-    color: '#000000',
+    color: '#13BFED',
     info: 'A star whose light is being sucked back in by its own gravity, looking like a void.',
     stats: { mass: '3.2 Suns', temperature: '12,000 K', atmosphere: 'Hydrogen' }
   }
