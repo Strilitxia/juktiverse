@@ -401,7 +401,7 @@ const initialPlanets: Planet[] = [
     visualType: 'blackhole',
     position: [-240, 180, -20],
     size: 4,
-    color: '#000000',
+    color: '#24c01f',
     info: 'A dormant Quasar. It is currently quiet, but would incinerate the sector if it began feeding.',
     stats: { mass: '1,000 Suns', temperature: '0.0000001 K', atmosphere: 'None' }
   },
