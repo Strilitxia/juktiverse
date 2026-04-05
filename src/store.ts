@@ -364,7 +364,7 @@ const initialPlanets: Planet[] = [
   {
     id: 'p30',
     name: 'Glint',
-    type: 'star',
+    type: 'x-planet',
     visualType: 'normal',
     position: [-150, 230, -120],
     size: 4.5,
