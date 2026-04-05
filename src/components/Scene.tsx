@@ -272,15 +272,33 @@ function PlanetMesh({ planet }: { planet: Planet }) {
   const { status, lastNewDiscovery } = useGameStore();
   const isNewlyDiscovered = lastNewDiscovery === planet.id;
   
+  const [showHtml, setShowHtml] = useState(false);
+  const showHtmlRef = useRef(false);
+  
   const planetPos = useMemo(() => new THREE.Vector3(...planet.position), [planet.position]);
   const displayType = planet.visualType || planet.type;
   
   useFrame((state) => {
     const distSq = state.camera.position.distanceToSquared(planetPos);
     
+    // Distance culling for the entire planet group (1000 units)
+    const isVisible = distSq < 1000000;
+    if (groupRef.current) {
+      groupRef.current.visible = isVisible;
+    }
+    
+    // Toggle HTML rendering based on distance (300 units)
+    const near = distSq < 90000;
+    if (near !== showHtmlRef.current) {
+      showHtmlRef.current = near;
+      setShowHtml(near);
+    }
+    
+    if (!isVisible) return;
+
     if (htmlRef.current) {
-      htmlRef.current.style.opacity = distSq < 90000 ? '1' : '0'; // ~300 units
-      htmlRef.current.style.pointerEvents = distSq < 90000 ? 'auto' : 'none';
+      htmlRef.current.style.opacity = distSq < 40000 ? '1' : '0'; // ~200 units for full opacity
+      htmlRef.current.style.pointerEvents = distSq < 40000 ? 'auto' : 'none';
     }
 
     if (meshRef.current) {
@@ -329,20 +347,20 @@ function PlanetMesh({ planet }: { planet: Planet }) {
 
   return (
     <group ref={groupRef} position={planet.position}>
-      <Sphere ref={meshRef} args={[planet.size, 64, 64]}>
+      <Sphere ref={meshRef} args={[planet.size, 32, 32]}>
         <primitive object={material} attach="material" />
       </Sphere>
       
       {/* Discovery Pulse Glow */}
       {isNewlyDiscovered && (
-        <Sphere ref={glowRef} args={[planet.size * 1.5, 32, 32]}>
+        <Sphere ref={glowRef} args={[planet.size * 1.5, 16, 16]}>
           <meshBasicMaterial color={planet.color} transparent opacity={0.4} side={THREE.BackSide} />
         </Sphere>
       )}
 
       {/* Atmosphere glow for normal planets and stars */}
       {(displayType === 'normal' || displayType === 'star' || displayType === 'x-planet') && (
-        <Sphere args={[planet.size * 1.1, 32, 32]}>
+        <Sphere args={[planet.size * 1.1, 16, 16]}>
           <meshBasicMaterial 
             color={planet.color} 
             transparent 
@@ -357,28 +375,30 @@ function PlanetMesh({ planet }: { planet: Planet }) {
         <group rotation={[Math.PI / 2.2, 0, 0]}>
           {/* Outer faint disk */}
           <mesh ref={diskRef1}>
-            <ringGeometry args={[planet.size * 1.5, planet.size * 3.5, 64]} />
+            <ringGeometry args={[planet.size * 1.5, planet.size * 3.5, 32]} />
             <meshBasicMaterial color="#ff4400" transparent opacity={0.3} side={THREE.DoubleSide} blending={THREE.AdditiveBlending} />
           </mesh>
           {/* Inner bright disk */}
           <mesh ref={diskRef2}>
-            <ringGeometry args={[planet.size * 1.2, planet.size * 2.2, 64]} />
+            <ringGeometry args={[planet.size * 1.2, planet.size * 2.2, 32]} />
             <meshBasicMaterial color="#ffaa00" transparent opacity={0.6} side={THREE.DoubleSide} blending={THREE.AdditiveBlending} />
           </mesh>
           {/* Photon ring (glow around the event horizon) */}
           <mesh rotation={[-Math.PI / 2.2, 0, 0]}>
-            <sphereGeometry args={[planet.size * 1.05, 32, 32]} />
+            <sphereGeometry args={[planet.size * 1.05, 16, 16]} />
             <meshBasicMaterial color="#ff4400" transparent opacity={0.8} side={THREE.BackSide} blending={THREE.AdditiveBlending} />
           </mesh>
         </group>
       )}
       
       {/* Planet Label */}
-      <Html distanceFactor={100} position={[0, planet.size + 2, 0]} center>
-        <div ref={htmlRef} className="text-white/50 text-xs font-mono tracking-widest uppercase whitespace-nowrap pointer-events-none transition-opacity duration-300">
-          {planet.name}
-        </div>
-      </Html>
+      {showHtml && (
+        <Html distanceFactor={100} position={[0, planet.size + 2, 0]} center>
+          <div ref={htmlRef} className="text-white/50 text-xs font-mono tracking-widest uppercase whitespace-nowrap pointer-events-none transition-opacity duration-300">
+            {planet.name}
+          </div>
+        </Html>
+      )}
     </group>
   );
 }

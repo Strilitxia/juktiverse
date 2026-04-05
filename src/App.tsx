@@ -1,5 +1,4 @@
 import { Canvas } from '@react-three/fiber';
-import { PointerLockControls } from '@react-three/drei';
 import { Scene } from './components/Scene';
 import { UI } from './components/UI';
 import { useGameStore } from './store';
@@ -24,9 +23,6 @@ export default function App() {
       
       <Canvas camera={{ position: [0, 0, 0], fov: 60 }}>
         <Scene />
-        {(status === 'playing' || status === 'slowmo') && !isMobile && (
-          <PointerLockControls />
-        )}
       </Canvas>
     </div>
   );

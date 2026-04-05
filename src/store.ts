@@ -53,7 +53,7 @@ interface GameState {
 }
 
 const initialPlanets: Planet[] = [
-  {
+   {
     id: 'p2',
     name: 'Elysium',
     type: 'normal',
@@ -525,12 +525,22 @@ export const useGameStore = create<GameState>()(
     }),
     {
       name: 'juktiverse-save',
+      version: 2,
+      migrate: (persistedState: any, version: number) => {
+        if (version === 0 || version === 1 || !version) {
+          // Drop planets and debris from old saves so they load from initial state
+          return {
+            visitedPlanets: persistedState.visitedPlanets || [],
+            playerPosition: persistedState.playerPosition || [0, 0, 0],
+            exploredRadius: persistedState.exploredRadius || 50,
+          };
+        }
+        return persistedState;
+      },
       partialize: (state) => ({
-        planets: state.planets,
         visitedPlanets: state.visitedPlanets,
         playerPosition: state.playerPosition,
         exploredRadius: state.exploredRadius,
-        debris: state.debris,
       }),
     }
   )
