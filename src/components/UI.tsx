@@ -383,7 +383,7 @@ export function UI() {
   useEffect(() => {
     if (status === 'won') {
       const timer = setTimeout(() => {
-        window.location.href = 'https://example.com/winning-page-placeholder';
+        window.location.href = 'https://winnerpage.vercel.app/';
       }, 5000);
       return () => clearTimeout(timer);
     }
@@ -395,7 +395,7 @@ export function UI() {
 
   const handleCloseInfo = () => {
     if (currentPlanet?.type === 'x-planet') {
-      window.location.href = 'https://example.com/winning-page-placeholder';
+      window.location.href = 'https://winnerpage.vercel.app/';
     } else {
       setStatus('playing');
     }
