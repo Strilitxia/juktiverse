@@ -277,7 +277,7 @@ const initialPlanets: Planet[] = [
     name: 'Chronos',
     type: 'x-planet',
     visualType: 'normal',
-    position: [196, 230, -88],
+    position: [196, 312, -88],
     size: 8,
     color: '#13BFED',
     info: 'A star whose light is being sucked back in by its own gravity, looking like a void.',
