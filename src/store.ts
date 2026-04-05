@@ -189,10 +189,10 @@ const initialPlanets: Planet[] = [
     id: 'p13',
     name: 'Abyssal Maw',
     type: 'blackhole',
-    visualType: 'blackhole',
+    visualType: 'normal',
     position: [-50, -150, -60],
-    size: 15,
-    color: '#000000',
+    size: 10,
+    color: '#7913ED',
     info: 'A supermassive black hole. The gravity is so strong that travel time near it slows down.',
     stats: { mass: '1000 Suns', temperature: '0 K', atmosphere: 'None' }
   },
@@ -235,7 +235,7 @@ const initialPlanets: Planet[] = [
     type: 'blackhole',
     visualType: 'star',
     position: [-10, -220, 190],
-    size: 20,
+    size: 12,
     color: '#818cf8',
     info: 'The core is a singularity, but the exploding shell still glows with star-like brilliance.',
     stats: { mass: '25 Suns', temperature: '5M K', atmosphere: 'Plasma Cloud' }
@@ -268,7 +268,7 @@ const initialPlanets: Planet[] = [
     type: 'blackhole',
     visualType: 'blackhole',
     position: [0, 0, -250],
-    size: 18,
+    size: 8,
     color: '#000000',
     info: 'The furthest point in the sector. A massive singularity that seems to watch the galaxy.',
     stats: { mass: '5000 Suns', temperature: '0.00001 K', atmosphere: 'None' }
