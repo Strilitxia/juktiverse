@@ -433,8 +433,8 @@ export function UI() {
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/80 to-black" />
 
             <div className="max-w-2xl text-center space-y-8 p-8 relative z-10">
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-orange-500 drop-shadow-[0_0_15px_rgba(234,88,12,0.8)]">
-                JUKTIVERSE
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter text-orange-500 drop-shadow-[0_0_15px_rgba(234,88,12,0.8)]">
+                Mission: JUKTIVERSE
               </h1>
               <p className="text-lg md:text-xl text-gray-300">
                 Explore the unknown. Discover strange new worlds. Find the legendary X-Planet.
@@ -497,7 +497,7 @@ export function UI() {
             {/* Mobile Controls */}
             {isMobile && (
               <>
-                <div className="absolute bottom-16 left-4 sm:bottom-20 sm:left-8 pointer-events-auto flex flex-col items-center gap-2">
+                <div className="absolute bottom-24 left-4 sm:bottom-32 sm:left-8 pointer-events-auto flex flex-col items-center gap-2">
                   <button 
                     onPointerDown={() => simulateKey('KeyW', true)}
                     onPointerUp={() => simulateKey('KeyW', false)}
@@ -535,7 +535,7 @@ export function UI() {
                 </div>
                 
                 {/* Mobile Up/Down Controls */}
-                <div className="absolute bottom-16 right-4 sm:bottom-20 sm:right-8 pointer-events-auto flex flex-col items-center gap-2">
+                <div className="absolute bottom-24 right-4 sm:bottom-32 sm:right-8 pointer-events-auto flex flex-col items-center gap-2">
                   <button 
                     onPointerDown={() => simulateKey('Space', true)}
                     onPointerUp={() => simulateKey('Space', false)}

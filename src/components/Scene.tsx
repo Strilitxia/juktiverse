@@ -304,12 +304,6 @@ function PlanetMesh({ planet }: { planet: Planet }) {
     if (meshRef.current) {
       const timeScale = (status === 'slowmo' || status === 'blackhole-warning') ? 0.1 : 1;
       meshRef.current.rotation.y += 0.005 * timeScale;
-      
-      if (displayType === 'blackhole' && (status === 'slowmo' || status === 'blackhole-warning')) {
-        // Expand black hole effect
-        const scale = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.1;
-        meshRef.current.scale.setScalar(scale);
-      }
     }
 
     if (glowRef.current && isNewlyDiscovered) {
