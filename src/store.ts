@@ -70,7 +70,7 @@ const initialPlanets: Planet[] = [
     type: 'blackhole',
     visualType: 'blackhole',
     position: [-230, -50, -180],
-    size: 8,
+    size: 6,
     color: '#000000',
     info: 'A supermassive singularity warping the very fabric of space-time around it.',
     stats: { mass: '500 Suns', temperature: '0.000001 K', atmosphere: 'None' }
@@ -103,7 +103,7 @@ const initialPlanets: Planet[] = [
     type: 'blackhole',
     visualType: 'star',
     position: [200, -10, 50],
-    size: 10,
+    size: 3,
     color: '#ffffff',
     info: 'A dangerous trap. It emits a brilliant white light like a main-sequence star to lure in matter.',
     stats: { mass: '50 Suns', temperature: '10M K (Accretion)', atmosphere: 'None' }
@@ -169,7 +169,7 @@ const initialPlanets: Planet[] = [
     type: 'star',
     visualType: 'blackhole',
     position: [-30, -30, 240],
-    size: 7,
+    size: 1,
     color: '#4ade80',
     info: 'A strange green star shrouded in a thick shell of dark dust, mimicking a black hole signature.',
     stats: { mass: '0.8 Suns', temperature: '4,000 K', atmosphere: 'Chlorophyll-rich dust' }
@@ -213,7 +213,7 @@ const initialPlanets: Planet[] = [
     type: 'normal',
     visualType: 'blackhole',
     position: [-80, 180, -90],
-    size: 9,
+    size: 4,
     color: '#0f172a',
     info: 'A planet made of dark matter remnants; it absorbs light so perfectly it looks like a hole in space.',
     stats: { mass: '12 Jupiters', temperature: '10 K', atmosphere: 'Exotic Matter' }
@@ -246,7 +246,7 @@ const initialPlanets: Planet[] = [
     type: 'normal',
     visualType: 'star',
     position: [50, 150, 190],
-    size: 11,
+    size: 3,
     color: '#fdba74',
     info: 'A super-Jupiter that is almost large enough to ignite fusion, giving off a dim orange glow.',
     stats: { mass: '13 Jupiters', temperature: '900 K', atmosphere: 'Metallic Hydrogen' }
@@ -257,7 +257,7 @@ const initialPlanets: Planet[] = [
     type: 'blackhole',
     visualType: 'blackhole',
     position: [-220, 0, -250],
-    size: 6,
+    size: 5,
     color: '#000000',
     info: 'The final frontier. A spinning Kerr black hole that allows for theoretical time dilation.',
     stats: { mass: '100 Suns', temperature: '0.00001 K', atmosphere: 'Event Horizon' }
@@ -290,7 +290,7 @@ const initialPlanets: Planet[] = [
     type: 'blackhole',
     visualType: 'blackhole',
     position: [-10, 210, -210],
-    size: 7,
+    size: 2,
     color: '#000000',
     info: 'Known for its gravitational lensing that reflects light from the other side of the galaxy.',
     stats: { mass: '15 Suns', temperature: '0.00005 K', atmosphere: 'None' }
@@ -356,7 +356,7 @@ const initialPlanets: Planet[] = [
     type: 'star',
     visualType: 'blackhole',
     position: [10, 10, -250],
-    size: 6,
+    size: 5,
     color: '#334155',
     info: 'A neutron star spinning so fast its light is redshifted into invisibility, mimicking a black hole.',
     stats: { mass: '2 Suns', temperature: '1M K', atmosphere: 'Neutron Degeneracy' }
@@ -400,7 +400,7 @@ const initialPlanets: Planet[] = [
     type: 'x-planet',
     visualType: 'blackhole',
     position: [-240, 180, -20],
-    size: 11,
+    size: 4,
     color: '#000000',
     info: 'A dormant Quasar. It is currently quiet, but would incinerate the sector if it began feeding.',
     stats: { mass: '1,000 Suns', temperature: '0.0000001 K', atmosphere: 'None' }
@@ -411,7 +411,7 @@ const initialPlanets: Planet[] = [
     type: 'blackhole',
     visualType: 'star',
     position: [160, 140, 30],
-    size: 9,
+    size: 3,
     color: '#fde047',
     info: 'A singularity whose intense accretion disk is perfectly spheresized, mimicking a yellow sun.',
     stats: { mass: '45 Suns', temperature: '5M K (Disk)', atmosphere: 'None' }
@@ -444,7 +444,7 @@ const initialPlanets: Planet[] = [
     type: 'blackhole',
     visualType: 'normal',
     position: [-40, 60, 250],
-    size: 10,
+    size: 2,
     color: '#312e81',
     info: 'A massive black hole that has captured enough gas to look like a dark purple gas giant.',
     stats: { mass: '120 Suns', temperature: '5 K', atmosphere: 'Stolen Gas Veil' }
