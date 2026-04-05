@@ -54,17 +54,6 @@ interface GameState {
 
 const initialPlanets: Planet[] = [
   {
-    id: 'p1',
-    name: 'Aurelia',
-    type: 'star',
-    visualType: 'star',
-    position: [0, 0, 0],
-    size: 15,
-    color: '#fbbf24',
-    info: 'A young, vibrant yellow dwarf at the center of the sector, radiating life-giving energy.',
-    stats: { mass: '1.2 Suns', temperature: '5,800 K', atmosphere: 'Hydrogen/Helium Plasma' }
-  },
-  {
     id: 'p2',
     name: 'Elysium',
     type: 'normal',
@@ -481,17 +470,6 @@ const initialPlanets: Planet[] = [
     color: '#c084fc',
     info: 'The magnetic field is so strong that the entire planet is covered in permanent, shimmering auroras.',
     stats: { mass: '1.8 Earths', temperature: '260 K', atmosphere: 'Nitrogen/Argon' }
-  },
-  {
-    id: 'p40',
-    name: 'Omega',
-    type: 'blackhole',
-    visualType: 'blackhole',
-    position: [0, 0, -250],
-    size: 40,
-    color: '#000000',
-    info: 'The Great Attractor. A supermassive black hole that anchors this entire cluster of planets.',
-    stats: { mass: '10,000 Suns', temperature: '0.00000001 K', atmosphere: 'None' }
   }
 ];
 
