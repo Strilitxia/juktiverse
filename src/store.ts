@@ -395,17 +395,6 @@ const initialPlanets: Planet[] = [
     stats: { mass: '60 Suns', temperature: '35,000 K', atmosphere: 'Helium/Hydrogen' }
   },
   {
-    id: 'p33',
-    name: 'Eventide',
-    type: 'x-planet',
-    visualType: 'blackhole',
-    position: [-240, 180, -20],
-    size: 4,
-    color: '#24c01f',
-    info: 'A dormant Quasar. It is currently quiet, but would incinerate the sector if it began feeding.',
-    stats: { mass: '1,000 Suns', temperature: '0.0000001 K', atmosphere: 'None' }
-  },
-  {
     id: 'p34',
     name: 'Mirage II',
     type: 'blackhole',
@@ -448,17 +437,6 @@ const initialPlanets: Planet[] = [
     color: '#312e81',
     info: 'A massive black hole that has captured enough gas to look like a dark purple gas giant.',
     stats: { mass: '120 Suns', temperature: '5 K', atmosphere: 'Stolen Gas Veil' }
-  },
-  {
-    id: 'p38',
-    name: 'Flare',
-    type: 'star',
-    visualType: 'star',
-    position: [150, -230, -140],
-    size: 8,
-    color: '#fb923c',
-    info: 'A volatile Red Dwarf that emits massive solar flares every few hours.',
-    stats: { mass: '0.3 Suns', temperature: '3,800 K', atmosphere: 'Hydrogen Plasma' }
   },
   {
     id: 'p39',
